@@ -28,7 +28,7 @@ texts = [
     "The grey rain curtain of this world rolls back, and all turns to silver glass, and then you see it. "
     "White shores, and beyond, a far green country under a swift sunrise.",
     
-    "If you put the federal government in charge of the Sahara Desert, in 5 years there'd be a shortage of sand."
+    "Remember, remember, the 5th of November, the Gunpowder Treason and plot; I know of no reason why the Gunpowder Treason should ever be forgot."
 ]
 
 # User login.
