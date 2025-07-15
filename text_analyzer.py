@@ -14,45 +14,58 @@ import string
 
 # Dictionary of the registered users and passwords.
 users = {
-    "bob":"123",
-    "ann":"pass123",
-    "mike":"password123",
-    "liz":"pass123"
+"bob":"123",
+"ann":"pass123",
+"mike":"password123",
+"liz":"pass123"
 }
 
 # List of texts to be analyzed.
-texts = [
-    "There are 7 days in a week, 24 hours in a day, and 365 days in a year. Make them count.",
-    
-    "End? No, the journey doesn't end here. Death is just another path, one that we all must take. "
-    "The grey rain curtain of this world rolls back, and all turns to silver glass, and then you see it. "
-    "White shores, and beyond, a far green country under a swift sunrise.",
-    
-    "Remember, remember, the 5th of November, the Gunpowder Treason and plot; I know of no reason why the Gunpowder Treason should ever be forgot."
+texts = ['''
+Situated about 10 miles west of Kemmerer,
+Fossil Butte is a ruggedly impressive
+topographic feature that rises sharply
+some 1000 feet above Twin Creek Valley
+to an elevation of more than 7500 feet
+above sea level. The butte is located just
+north of US 30N and the Union Pacific Railroad,
+which traverse the valley. ''',
+'''At the base of Fossil Butte are the bright
+red, purple, yellow and gray beds of the Wasatch
+Formation. Eroded portions of these horizontal
+beds slope gradually upward from the valley floor
+and steepen abruptly. Overlying them and extending
+to the top of the butte are the much steeper
+buff-to-white beds of the Green River Formation,
+which are about 300 feet thick.''',
+'''The monument contains 8198 acres and protects
+a portion of the largest deposit of freshwater fish
+fossils in the world. The richest fossil fish deposits
+are found in multiple limestone layers, which lie some
+100 feet below the top of the butte. The fossils
+represent several varieties of perch, as well as
+other freshwater genera and herring similar to those
+in modern oceans. Other fish such as paddlefish,
+garpike and stingray are also present.'''
 ]
 
 # User login.
-username = input("username:")
-password = input("password:")
+username = input("username: ")
+password = input("password: ")
 
 # Check if the user is registered.
-if users.get(username) != password:
+if users.get(username.strip()) != password.strip():
     print("Unregistered user, terminating the program...")
     exit()
 
-# Welcome heading.
-print("-" * 40)
-print(f"Welcome to the app, {username.title()}.")
-print(f"We have {len(texts)} texts to be analyzed.")
-print("-" * 40)
-
 # Text selection.
-choice = int(input(f"Enter a number btw. From 1 to {len(texts)}: "))
-print("-" * 40)
+print("-" * 40, f"Welcome to the app, {username.title()}.", sep="\n")
+print(f"We have {len(texts)} texts to be analyzed.", "-" * 40, sep="\n")
+choice = input(f"Enter a number btw. From 1 to {len(texts)}: ")
 
 # Check if the input is a valid number.
-if not choice in range(1, len(texts) + 1):
-    print("Invalid selection. Exiting.")
+if not choice.isdigit() or int(choice) not in range(1, len(texts) + 1):
+    print("Invalid selection. Exiting.", "-" * 40, sep="\n")
     exit()
 
 # Split the text into a list of words.
@@ -69,6 +82,7 @@ numeric_count = sum(1 for word in stripped_words if word.isnumeric())
 numeric_sum = sum(int(word) for word in stripped_words if word.isnumeric())
 
 # Print out the results.
+print("-" * 40)
 print(f"There are {word_count} words in the selected text.")
 print(f"There are {titlecase_count} titlecase words.")
 print(f"There are {uppercase_count} uppercase words.")
@@ -87,22 +101,20 @@ word_lengths = dict(sorted(word_lengths.items()))
 lengths = list(word_lengths.keys())
 counts = list(word_lengths.values())
 
-# Print out the final "histogram".
-# 1st: Let's determine how wide the graph heading should be.
-if max(counts) <= 10:
+# Determine how wide the graph heading should be.
+if max(counts) <= 11:
     max_spaces = 1
 else:
-    max_spaces = max(counts) - 9
+    max_spaces = max(counts) - 10
 
-print("-" * 40)
-print(f"LEN|OCCURENCES{" ":<{max_spaces}}|NR.")
-print("-" * 40)
+print("-" * 40, f"LEN|OCCURRENCES{" ":<{max_spaces}}|NR.", "-" * 40, sep="\n")
 
-# 2nd: Print out the rest of the graph.
-max_spaces += 10
+# Print out the final "histogram".
+max_spaces += 11
 
 for i in range(len(lengths)):
     length = lengths[i]
     count = counts[i]
     stars = "*" * count
     print(f"{length:3}|{stars:<{max_spaces}}|{count}")
+print("-" * 40)
